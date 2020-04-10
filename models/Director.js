@@ -1,11 +1,23 @@
-//Filmler İçin Şemamı Burada Oluşturdum.
+//Yönetmen İçin Şemamı Burada Oluşturdum.
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const DirectorSchema = new Schema({
-    name : String,
-    surname : String,
-    bio : String,
+    name : {
+        type : String,
+        maxlength : 50,
+        minlength : 2
+    },
+    surname : {
+        type : String,
+        maxlength : 40,
+        minlength : 2
+    },
+    bio : {
+        type : String,
+        maxlength: 1000,
+        minlength: 50
+    },
     createAt : {
         type : Date,
         default: Date.now
