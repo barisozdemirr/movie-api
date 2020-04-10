@@ -1,7 +1,5 @@
 # movie-api
-
-A movie api that I made with node js.
-=======
+Node.Js öğrenirken geliştirmiş olduğum bir api'dir.
 
 
 # Movies
