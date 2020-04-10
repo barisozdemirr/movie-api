@@ -63,6 +63,8 @@ router.get("/", (req, res) => {
 
 });
 
+
+// Director Look Up
 router.get("/:director_id", (req, res) => {
   const promise = Director.aggregate([
     {
@@ -115,6 +117,31 @@ router.get("/:director_id", (req, res) => {
 
 });
 
+// Director Update
+router.put("/:director_id", (req, res, next ) =>{
+  const promise = Director.findByIdAndUpdate(req.params.director_id, req.body, { new: true });
+  
+  promise.then((director) => {
+    if (!director)
+      next({ message : "The Director is not found. Please try again later.!", code: 30 });
+    res.json(director);
+  }).catch((err) => {
+    res.json(err);
+  });
+});
+
+// Director Delete
+router.delete("/:director_id", (req, res, next ) =>{
+  const promise = Director.findByIdAndRemove(req.params.director_id );
+  
+  promise.then((director) => {
+    if (!director)
+      next({ message : "The Director is not found. Please try again later.", code: 30 });
+    res.json({ process : "1" });
+  }).catch((err) => {
+    res.json(err);
+  });
+});
 
 
 module.exports = router;
