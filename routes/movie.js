@@ -86,7 +86,7 @@ router.post('/', (req, res, next) => {
   // Promise Yapısı İle Hata Kontrolü
   const promise = movie.save();
   promise.then((data) => {
-    res.json({ process : 1 });
+    res.json(data);
   }).catch((err) => {
     res.json(err);
   });    
