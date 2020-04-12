@@ -5,7 +5,7 @@ const server = require("../../app");
 
 chai.use(chaiHttp);
 
-    let token;
+    let token, movie_id;
 
     describe("/api/movies tests",() => {
         before((done) => {
@@ -18,7 +18,7 @@ chai.use(chaiHttp);
             });
         });
     
-    describe("/GET Movies", () => {
+    describe("/GET Movie", () => {
         it("It should GET all the movies.", (done) =>{
             chai.request(server)
             .get("/api/movies")
@@ -56,8 +56,32 @@ chai.use(chaiHttp);
                 res.body.should.have.property("year");
                 res.body.should.have.property("country");
                 res.body.should.have.property("imdb_score");
+                movie_id = res.body._id;
                 done();
             });
         });
     });
+
+    describe("/GET/:director_id ", () => {
+        it("it should GET a movie by the given id", (done) => {
+            chai.request(server)
+            .get("/api/movies/" + movie_id)
+            .set("x-access-token", token)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a("object");
+                res.body.should.have.property("director_id");
+                res.body.should.have.property("title");
+                res.body.should.have.property("category");
+                res.body.should.have.property("year");
+                res.body.should.have.property("country");
+                res.body.should.have.property("imdb_score");
+                res.body.should.have.property("_id").eql(movie_id);
+                done();
+            });
+        });
+    });
+
+
+
 });   
