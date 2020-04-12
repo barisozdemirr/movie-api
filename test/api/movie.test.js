@@ -18,7 +18,7 @@ chai.use(chaiHttp);
             });
         });
     
-    describe("/GET Movie", () => {
+    describe("/GET/:movie_id", () => {
         it("It should GET all the movies.", (done) =>{
             chai.request(server)
             .get("/api/movies")
@@ -31,7 +31,7 @@ chai.use(chaiHttp);
         });
     });
 
-    describe("/POST Movie", () => {
+    describe("/POST/:movie_id", () => {
         it("It should POST a movie.", (done) => {
 
             const movie = {
@@ -62,7 +62,7 @@ chai.use(chaiHttp);
         });
     });
 
-    describe("/GET/:director_id ", () => {
+    describe("/GET/:movie_id ", () => {
         it("it should GET a movie by the given id", (done) => {
             chai.request(server)
             .get("/api/movies/" + movie_id)
@@ -82,6 +82,49 @@ chai.use(chaiHttp);
         });
     });
 
+    describe("/PUT/:movie_id", () => {
+        it("It should UPDATE a movie given by id.", (done) => {
 
+            const movie = {
+                director_id : "5e90531d7a0cac1d005a0a60",
+                title : "Test Movie",
+                category : "Test Category",
+                country : "Test Country",
+                year : 2020,
+                imdb_score : 7
+            };
+
+            chai.request(server)
+            .put("/api/movies/"+ movie_id)
+            .send(movie)
+            .set("x-access-token", token)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a("object");
+                res.body.should.have.property("director_id").eql(movie.director_id);
+                res.body.should.have.property("title").eql(movie.title);
+                res.body.should.have.property("category").eql(movie.category);
+                res.body.should.have.property("year").eql(movie.year);
+                res.body.should.have.property("country").eql(movie.country);
+                res.body.should.have.property("imdb_score").eql(movie.imdb_score);
+
+                done();
+            });
+        });
+    });
+
+    describe("/DELETE Movie", () => {
+        it("It should DELETE a movie given by id.", (done) => {
+            chai.request(server)
+            .delete("/api/movies/"+ movie_id)
+            .set("x-access-token", token)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a("object");
+                res.body.should.have.property("process").eql(1);
+                done();
+            });
+        });
+    });
 
 });   
