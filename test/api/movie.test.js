@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 
     describe("/api/movies tests",() => {
         before((done) => {
--            chai.request(server)
+-           chai.request(server)
             .post("/authenticate")
             .send({ username : "barisozdemir", password : "12345" })
             .end((err, res) => {
