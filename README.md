@@ -32,3 +32,5 @@ Node.Js öğrenirken geliştirmiş olduğum bir api'dir.
 | /register | `POST` | { username: 'foo', password:'1234' } | Create a new user. |
 | /authenticate | `POST` | { username: 'foo', password:'1234' } | Generate a token. |
 
+Heroku Üzerinde Canlı Görmek İçin;
+http://b-movies-api.herokuapp.com/
